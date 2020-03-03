@@ -12,8 +12,7 @@ package mainpackage;
 public class SJF {
     private static final int P_LENGTH = 4;
     
-    public SJF() {
-    }
+    public SJF() {}
     public void sortProcess(Process[] p) {
         int min = 0, minIndex = 0;
         String minProcess = "";
