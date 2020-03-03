@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mainpackage;
 
 import javax.swing.JOptionPane;
@@ -55,7 +50,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "Process", "Burst Time"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setResizable(false);
@@ -211,8 +214,6 @@ public class MainFrame extends javax.swing.JFrame {
         box2.setText(p[1].processNumber);
         box3.setText(p[2].processNumber);
         box4.setText(p[3].processNumber);
-        
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox algorithmSelector;
