@@ -118,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
     public void setGanttChart(Process[] p) {
-        final int totalWidth = 670, height = 40;
+        final int totalWidth = 670, height = 40, y = box1.getY();
         float sumOfBurstTime = 0;
         float[] boxRate = new float[P_LENGTH];
         
@@ -200,6 +200,11 @@ public class MainFrame extends javax.swing.JFrame {
         box2.setSize((int) (boxRate[1] * totalWidth), height);
         box3.setSize((int) (boxRate[2] * totalWidth), height);
         box4.setSize((int) (boxRate[3] * totalWidth), height);
+        
+        // set the location of boxes
+        box2.setLocation(box1.getWidth() + box1.getX(), y);
+        box3.setLocation(box2.getWidth() + box2.getX(), y);
+        box4.setLocation(box3.getWidth() + box3.getX(), y);
         
         // setting the labels of the boxes
         box1.setText(p[0].processNumber);
