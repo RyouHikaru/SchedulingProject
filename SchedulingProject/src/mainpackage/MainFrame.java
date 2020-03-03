@@ -1,6 +1,10 @@
 package mainpackage;
 
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
 
 
 /**
@@ -10,6 +14,11 @@ import javax.swing.JOptionPane;
 public class MainFrame extends javax.swing.JFrame {
     private static final int P_LENGTH = 4;
     private Process[] process;
+    private Color mejoYellow = new Color(255,255,153);
+    private Color mejoGreen = new Color(153,255,153);
+    private Color mejoOrange = new Color(255,204,153);
+    private Color mejoRed = new Color(255,102,102);
+    
     /**
      * Creates new form MainFrame
      */
@@ -28,7 +37,26 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        table = new javax.swing.JTable() {
+            public Component prepareRenderer(TableCellRenderer r, int rw, int col) {
+                Component c = super.prepareRenderer(r, rw, col);
+                switch(rw) {
+                    case 0:
+                    c.setBackground(mejoYellow);
+                    break;
+                    case 1:
+                    c.setBackground(mejoGreen );
+                    break;
+                    case 2:
+                    c.setBackground(mejoOrange );
+                    break;
+                    default:
+                    c.setBackground(mejoRed );
+                    break;
+                }
+                return c;
+            }
+        };
         calculateButton = new javax.swing.JButton();
         algorithmSelector = new javax.swing.JComboBox();
         box1 = new javax.swing.JTextField();
@@ -74,13 +102,21 @@ public class MainFrame extends javax.swing.JFrame {
 
         algorithmSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shortest Job First", "First Come First Serve" }));
 
+        box1.setEditable(false);
         box1.setBackground(new java.awt.Color(255, 255, 153));
+        box1.setFocusable(false);
 
+        box2.setEditable(false);
         box2.setBackground(new java.awt.Color(153, 255, 153));
+        box2.setFocusable(false);
 
+        box3.setEditable(false);
         box3.setBackground(new java.awt.Color(255, 204, 153));
+        box3.setFocusable(false);
 
+        box4.setEditable(false);
         box4.setBackground(new java.awt.Color(255, 102, 102));
+        box4.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,13 +213,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });
+        new MainFrame().setVisible(true);
     }
+
+    /**
+     *  Method to paint the Gantt  Chart depending on the process
+     * @param p the processes on which the Gantt Chart will be made
+     */
     public void setGanttChart(Process[] p) {
         final int totalWidth = 670, height = 40, y = box1.getY();
         float sumOfBurstTime = 0;
@@ -214,6 +250,44 @@ public class MainFrame extends javax.swing.JFrame {
         box2.setText(p[1].processNumber);
         box3.setText(p[2].processNumber);
         box4.setText(p[3].processNumber);
+        
+        // finalizing everything
+        finalizeBoxColors();
+    }
+
+    /**
+     * Method used to finalize the colors of every box in the chart
+     */
+    public void finalizeBoxColors() {
+        changeBoxColor(box1);
+        changeBoxColor(box2);
+        changeBoxColor(box3);
+        changeBoxColor(box4);
+    }
+
+    /**
+     *  Customize the color of the box in the chart
+     * @param box the JTextField to be customized.
+     */
+    public void changeBoxColor(JTextField box) {
+        switch (box.getText()) {
+            case "1":
+                box.setBackground(mejoYellow);
+                box.setForeground(mejoYellow);
+                break;
+            case "2":
+                box.setBackground(mejoGreen);
+                box.setForeground(mejoGreen);
+                break;
+            case "3":
+                box.setBackground(mejoOrange);
+                box.setForeground(mejoOrange);
+                break;
+            default:
+                box.setBackground(mejoRed);
+                box.setForeground(mejoRed);
+                break;
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox algorithmSelector;
