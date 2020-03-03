@@ -36,10 +36,10 @@ public class MainFrame extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         calculateButton = new javax.swing.JButton();
         algorithmSelector = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        box1 = new javax.swing.JTextField();
+        box2 = new javax.swing.JTextField();
+        box3 = new javax.swing.JTextField();
+        box4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scheduling Algorithm");
@@ -71,13 +71,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         algorithmSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shortest Job First", "First Come First Serve" }));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 153));
+        box1.setBackground(new java.awt.Color(255, 255, 153));
 
-        jTextField2.setBackground(new java.awt.Color(153, 255, 153));
+        box2.setBackground(new java.awt.Color(153, 255, 153));
 
-        jTextField3.setBackground(new java.awt.Color(255, 204, 153));
+        box3.setBackground(new java.awt.Color(255, 204, 153));
 
-        jTextField4.setBackground(new java.awt.Color(255, 102, 102));
+        box4.setBackground(new java.awt.Color(255, 102, 102));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,21 +85,22 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(392, 392, 392)
                             .addComponent(algorithmSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(1, 1, 1)
+                            .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(1, 1, 1)
+                            .addComponent(box3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(1, 1, 1)
+                            .addComponent(box4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -113,10 +114,10 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(algorithmSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(312, Short.MAX_VALUE))
         );
 
@@ -141,7 +142,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         SJF sjf = new SJF();
         sjf.sortProcess(process);
-        sjf.displayArray(process);
+//        sjf.displayArray(process);
+        
+        setGanttChart(process);
     }//GEN-LAST:event_calculateButtonActionPerformed
 
     /**
@@ -178,14 +181,42 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
+    public void setGanttChart(Process[] p) {
+        final int totalWidth = 670, height = 40;
+        float sumOfBurstTime = 0;
+        float[] boxRate = new float[P_LENGTH];
+        
+        // get the total burst time
+        for (int i = 0; i < P_LENGTH; i++) {
+            sumOfBurstTime += p[i].burstTime;
+        }
+        // set the box size's rating
+        for (int i = 0; i < P_LENGTH; i++) {
+            boxRate[i] = (p[i].burstTime / sumOfBurstTime);
+        }
+        
+        // set box sizes
+        box1.setSize((int) (boxRate[0] * totalWidth), height);
+        box2.setSize((int) (boxRate[1] * totalWidth), height);
+        box3.setSize((int) (boxRate[2] * totalWidth), height);
+        box4.setSize((int) (boxRate[3] * totalWidth), height);
+        
+        // setting the labels of the boxes
+        box1.setText(p[0].processNumber);
+        box2.setText(p[1].processNumber);
+        box3.setText(p[2].processNumber);
+        box4.setText(p[3].processNumber);
+        
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox algorithmSelector;
+    private javax.swing.JTextField box1;
+    private javax.swing.JTextField box2;
+    private javax.swing.JTextField box3;
+    private javax.swing.JTextField box4;
     private javax.swing.JButton calculateButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
