@@ -65,11 +65,10 @@ public class MainFrame extends javax.swing.JFrame {
         resetButton = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         box3 = new javax.swing.JTextField();
-        hintLabel = new javax.swing.JLabel();
+        ganttChartLabel = new javax.swing.JLabel();
         box1 = new javax.swing.JTextField();
         box2 = new javax.swing.JTextField();
         box4 = new javax.swing.JTextField();
-        averageBurstTimeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scheduling Algorithm");
@@ -94,6 +93,7 @@ public class MainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setResizable(false);
@@ -120,10 +120,11 @@ public class MainFrame extends javax.swing.JFrame {
         box3.setBackground(new java.awt.Color(255, 204, 153));
         box3.setFocusable(false);
 
-        hintLabel.setForeground(new java.awt.Color(255, 255, 255));
-        hintLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintLabel.setText("Kindly press the \"Calculate\" button twice on the first trial.");
-        hintLabel.setFocusable(false);
+        ganttChartLabel.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        ganttChartLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ganttChartLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ganttChartLabel.setText("Gantt Chart");
+        ganttChartLabel.setFocusable(false);
 
         box1.setEditable(false);
         box1.setBackground(new java.awt.Color(255, 255, 153));
@@ -137,10 +138,6 @@ public class MainFrame extends javax.swing.JFrame {
         box4.setBackground(new java.awt.Color(255, 102, 102));
         box4.setFocusable(false);
 
-        averageBurstTimeLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        averageBurstTimeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        averageBurstTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -148,7 +145,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(averageBurstTimeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                         .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
@@ -158,7 +154,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(box4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(hintLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ganttChartLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
                 .addContainerGap())
         );
@@ -166,16 +162,14 @@ public class MainFrame extends javax.swing.JFrame {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(hintLabel)
-                .addGap(15, 15, 15)
+                .addComponent(ganttChartLabel)
+                .addGap(30, 30, 30)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(averageBurstTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,17 +177,20 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(algorithmSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(algorithmSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -208,7 +205,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(resetButton))
                 .addGap(18, 18, 18)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,11 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
             chosenAlgorithm = algorithmSelector.getSelectedItem().toString();
             process = new Process[P_LENGTH];
             
-            for (int i = 0; i < P_LENGTH; i++) {
-                process[i] = new Process();
-                process[i].processNumber = table.getValueAt(i, 0).toString();
-                process[i].burstTime = Integer.parseInt(table.getValueAt(i, 1).toString());
-            }
+            getProcessInput();
             
             switch (chosenAlgorithm) {
                 case "Shortest Job First":
@@ -240,8 +233,6 @@ public class MainFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Choose what type of scheduling algorithm to be applied.");
                     return;
             }
-        
-            averageBurstTimeLabel.setText("Average Burst Time: " + Integer.toString(getAverageBurstTime(process)));
         }
         catch(NullPointerException npe) {
             JOptionPane.showMessageDialog(rootPane, "Please fill up all the labels before calculating.");
@@ -249,6 +240,9 @@ public class MainFrame extends javax.swing.JFrame {
         catch(NumberFormatException nfe) {
             JOptionPane.showMessageDialog(rootPane, "Please input numbers only in the burst time.");
         }
+        
+        JOptionPane.showMessageDialog(rootPane, "The Average Burst Time is: " + getAverageBurstTime(process));
+//        averageBurstTimeLabel.setText("Average Burst Time: " + getAverageBurstTime(process));
     }//GEN-LAST:event_calculateButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -285,7 +279,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         new MainFrame().setVisible(true);
     }
-
+    
+    /**
+     *  Method to get the values from the Table
+     */
+    public void getProcessInput() {
+        for (int i = 0; i < P_LENGTH; i++) {
+            process[i] = new Process();
+            process[i].processNumber = table.getValueAt(i, 0).toString();
+            process[i].burstTime = Integer.parseInt(table.getValueAt(i, 1).toString());
+        }
+    }
     /**
      *  Method to paint the Gantt  Chart depending on the process
      * @param p the processes on which the Gantt Chart will be made
@@ -334,7 +338,6 @@ public class MainFrame extends javax.swing.JFrame {
         changeBoxColor(box3);
         changeBoxColor(box4);
     }
-
     /**
      *  Customize the color of the box in the chart
      * @param box the JTextField to be customized.
@@ -359,22 +362,21 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
         }
     }
-    public int getAverageBurstTime(Process[] p) {
+    public String getAverageBurstTime(Process[] p) {
         int avg = 0;
         for(int i = 0; i < P_LENGTH; i++) {
             avg += p[i].burstTime;
         }
-        return (avg / 4);
+        return Integer.toString(avg / 4);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox algorithmSelector;
-    private javax.swing.JLabel averageBurstTimeLabel;
     private javax.swing.JTextField box1;
     private javax.swing.JTextField box2;
     private javax.swing.JTextField box3;
     private javax.swing.JTextField box4;
     private javax.swing.JButton calculateButton;
-    private javax.swing.JLabel hintLabel;
+    private javax.swing.JLabel ganttChartLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel;
     private javax.swing.JButton resetButton;
